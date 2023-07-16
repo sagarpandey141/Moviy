@@ -1,11 +1,7 @@
-const movieUrls = {
+const BASE_URL = import.meta.env.VITE_BASE_URL
+export const movieUrls = {
      
-     TRENDING_MOVIES_IN_WEEK : "https://api.themoviedb.org/3/trending/movie/week",
-     
-
-
-
-
-
+     TRENDING_MOVIES_IN_WEEK : BASE_URL + "/trending/movie/week",
+     MOVIE11: BASE_URL + "/movie/11"
 
 }
