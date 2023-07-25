@@ -3,6 +3,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { DateFormator } from '../utils/DateFormator';
 import Genre from "../RawData/Genre.json"
+import { Link } from 'react-router-dom';
 
 const Card = ({ movie }) => {
   const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
@@ -22,7 +23,9 @@ const Card = ({ movie }) => {
   return (
     <div className='flex flex-col mb-5'>
       <div className='relative'>
+      <Link to={`/movie/${movie?.id}`}>
         <img src={IMAGE_BASE_URL + "w300" + movie?.poster_path} alt={movie?.title} className='rounded-md relative w-full' loading='lazy' />
+      </Link>
         <div className='absolute bottom-0 translate-y-1/2 left-2 w-[20%]'>
           <CircularProgressbar
             maxValue={10} value={movie.vote_average} text={`${movie.vote_average?.toFixed(2)}%`}

@@ -7,6 +7,7 @@ function App() {
     <>
       <Routes className=''>
         <Route path="/movies" element={<MoviePage />} />
+        <Route path="/movie/:movieId" element={<Testing/>}/>
       </Routes>
     </>
   )
