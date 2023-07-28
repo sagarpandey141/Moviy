@@ -5,7 +5,7 @@ import Testing from "./components/Testing"
 function App() {
   return (
     <>
-      <p>hii</p>
+      {/* <p>hii</p> */}
       <Routes className=''>
         <Route path="/movies" element={<MoviePage />} />
         <Route path="/movie/:movieId" element={<Testing/>}/>
