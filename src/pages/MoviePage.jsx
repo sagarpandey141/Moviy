@@ -13,28 +13,25 @@ import sortOptions from "../RawData/sorting.json"
 
 
 const MoviePage = () => {
-  // const [results, setresults] = useState([]);
   const { results, page, loading} = useSelector(state => state.movie);
   const {selectedGenre,sortBy}  = useSelector(state => state.genre);
   const dispatch = useDispatch();
 
   async function CallMoviesPageAPI(page,genres,sortby) {
-    console.log(page,genres,sortby);
     dispatch(setLoading(true));
     try {
       let response;
       if (selectedGenre?.length > 0) {
-        response = await apiConnector("GET", movieUrls.TRENDING_MOVIES_IN_DAY, `?page=${page}${sortby != "" && "&sort_by="+sortby}&with_genres=${genres.map((value, index) =>
+        response = await apiConnector("GET", movieUrls.DISCOVER_MOVIE, `?page=${page}${sortby != "" ? "&sort_by="+sortby : ""}&with_genres=${genres.map((value, index) =>
           (index < genres.length) ? value.id : "," + value.id
         )}`);
       }
       else {
-        response = await apiConnector("GET", movieUrls.TRENDING_MOVIES_IN_DAY, `?page=${page}${sortby != "" ? "&sort_by="+sortby : "" }`);
+        response = await apiConnector("GET", movieUrls.DISCOVER_MOVIE, `?page=${page}${sortby != "" ? "&sort_by="+sortby : "" }`);
       }
       console.log("main", response)
       // response after filter 
-      const newResponse = response.data.results.filter(value => value.poster_path != null)
-      dispatch(setResults(newResponse));
+      dispatch(setResults(response.data.results));
       dispatch(setLoading(false));
 
     } catch (error) {
@@ -60,10 +57,10 @@ const MoviePage = () => {
     return () => window.removeEventListener("scroll",  isAtbottom)
   }, []);
   return (
-    <div className='bg-slate-900 min-h-screen' >
+    <div className='bg-[#BBDEF0] w-full' >
       <div className='max-w-7xl mx-auto w-11/12'>
         <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
-          <div className='text-2xl text-white'>Explore Movies</div>
+          <div className='text-2xl '>Explore Movies</div>
           {/* select custom */}
           <div className='flex gap-2 flex-col md:flex-row'>
              <CustomSelect Genre={Genre} />
@@ -79,6 +76,7 @@ const MoviePage = () => {
         }
         {loading && <Loader />}
       </div>
+  
     </div>
   )
 }

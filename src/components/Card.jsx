@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useRef,useState } from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { DateFormator } from '../utils/DateFormator';
 import Genre from "../RawData/Genre.json"
+import NoPoster from "../assets/no-poster.jpeg"
 
 const Card = ({ movie }) => {
+  const ref = useRef();
   const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
   let index = 0;
   const arr = [];
@@ -18,11 +20,10 @@ const Card = ({ movie }) => {
     }
   }
 
-
   return (
     <div className='flex flex-col mb-5'>
-      <div className='relative'>
-        <img src={IMAGE_BASE_URL + "w300" + movie?.poster_path} alt={movie?.title} className='rounded-md relative w-full' loading='lazy' />
+      <div className='relative hover:brightness-75 duration-500 cursor-pointer'>
+        <img src={movie.poster_path != null ? IMAGE_BASE_URL + "w300" + movie?.poster_path : NoPoster} alt={movie?.title} className='rounded-md relative object-cover' loading='lazy' />
         <div className='absolute bottom-0 translate-y-1/2 left-2 w-[20%]'>
           <CircularProgressbar
             maxValue={10} value={movie.vote_average} text={`${movie.vote_average?.toFixed(2)}%`}
@@ -44,9 +45,9 @@ const Card = ({ movie }) => {
 
         </div>
       </div>
-      <div className='mt-8 w-full text-white font-semibold '>
+      <div className='mt-8 w-full font-semibold '>
         <h2 className=''>{movie.title}</h2>
-        <p>{DateFormator(movie.release_date)}</p>
+        <p className='font-normal text-gray-500   '>{DateFormator(movie.release_date)}</p>
       </div>
     </div>
   )

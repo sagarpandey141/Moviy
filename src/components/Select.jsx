@@ -1,5 +1,5 @@
 import React,{useState,useEffect,useRef} from 'react'
-import {ArrowDropDown} from '@mui/icons-material'
+import {ArrowDropDown,CancelRounded} from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortBy } from '../Redux/Slices/genreSlice';
 import { resetPageAndResults } from '../Redux/Slices/movieSlice';
@@ -32,10 +32,15 @@ const Select = ({placeHolder,options}) => {
 
   return (
         <div className=' lg:max-w-xl  min-w-[350px]' ref={ref} >
-          <div className='border text-white px-2 py-1 relative '>
-            <div className='flex justify-between items-center'>
-              <div className='' >
-               { sortBy != "" ? `${sortBy}` : placeHolder }  
+          <div className='border border-black px-2 py-1 relative '>
+            <div className='flex justify-between '>
+              <div className='flex justify-between flex-grow' >
+               { sortBy != "" ? `${sortBy}` : placeHolder }
+              { sortBy != "" && <CancelRounded onClick= { (e) => {
+                    e.stopPropagation();
+                    dispatch(resetPageAndResults());
+                    dispatch(setSortBy(""))
+                    } }  />}
               </div>
               <div className='flex gap-2'>
                 <div className='w-[1px] bg-white'></div>
@@ -49,16 +54,12 @@ const Select = ({placeHolder,options}) => {
             </div>
               {/* drop down box */}
             {showDropDown && <div className='h-fit  absolute w-full bg-white left-0 text-black z-10 top-10 p-2 '>
-             <div className='cursor-pointer hover:bg-slate-100' onClick= { () => {
-                    dispatch(resetPageAndResults());
-                    dispatch(setSortBy(""))
-                    } } >None</div>
               {
                 options.map((option,index) => (<div className='cursor-pointer hover:bg-slate-100' key={index} onClick= { () => {
                     dispatch(resetPageAndResults());
-                    dispatch(setSortBy(option))
+                    dispatch(setSortBy(option.value))
                     } } >
-                  {option}
+                  {option.name}
                 </div>))
               }
             </div>}
