@@ -5,5 +5,9 @@ export const movieUrls = {
      DISCOVER_MOVIE : BASE_URL + "/discover/movie",
      MOVIE11: BASE_URL + "/movie/11",
      MOVIE_DETAIL:BASE_URL+"/movie/"
+
+     
+
+
      
 }
