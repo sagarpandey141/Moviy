@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { apiConnector } from '../sevices/axios'
 import { movieUrls } from '../sevices/urls'
 import Card from '../components/Card'
@@ -7,26 +7,30 @@ import Genre from "../RawData/Genre.json"
 import CustomSelect from '../components/CustomSelect'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading, setResults, setPageIncrement, resetPageAndResults } from '../Redux/Slices/movieSlice'
+import Select from '../components/Select'
+import sortOptions from "../RawData/sorting.json"
+
+
 
 const MoviePage = () => {
-  // const [results, setresults] = useState([]);
   const { results, page, loading} = useSelector(state => state.movie);
   const {selectedGenre,sortBy}  = useSelector(state => state.genre);
   const dispatch = useDispatch();
 
-  async function CallMoviesPageAPI() {
+  async function CallMoviesPageAPI(page,genres,sortby) {
     dispatch(setLoading(true));
     try {
       let response;
       if (selectedGenre?.length > 0) {
-        response = await apiConnector("GET", movieUrls.TRENDING_MOVIES_IN_DAY, `?page=${page}${sortBy != "" && "&sort_by=" + sortBy}&with_genres=${selectedGenre.map((value, index) =>
-          (index < selectedGenre.length) ? value.id : "," + value.id
+        response = await apiConnector("GET", movieUrls.DISCOVER_MOVIE, `?page=${page}${sortby != "" ? "&sort_by="+sortby : ""}&with_genres=${genres.map((value, index) =>
+          (index < genres.length) ? value.id : "," + value.id
         )}`);
       }
       else {
-        response = await apiConnector("GET", movieUrls.TRENDING_MOVIES_IN_DAY, `?page=${page}${sortBy != "" ? "&sort_by="+sortBy :"" }`);
+        response = await apiConnector("GET", movieUrls.DISCOVER_MOVIE, `?page=${page}${sortby != "" ? "&sort_by="+sortby : "" }`);
       }
       console.log("main", response)
+      // response after filter 
       dispatch(setResults(response.data.results));
       dispatch(setLoading(false));
 
@@ -45,23 +49,22 @@ const MoviePage = () => {
   }
 
   useEffect(() => {
-    CallMoviesPageAPI()
-  }, [page,selectedGenre])
+    CallMoviesPageAPI(page,selectedGenre,sortBy)
+  }, [page,selectedGenre,sortBy])
 
   useEffect(() => {
     window.addEventListener("scroll",isAtbottom)
     return () => window.removeEventListener("scroll",  isAtbottom)
   }, []);
-
   return (
-    <div className='bg-slate-900 min-h-screen' >
+    <div className='bg-[#BBDEF0] w-full' >
       <div className='max-w-7xl mx-auto w-11/12'>
         <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
-          <div className='text-2xl text-white'>Explore Movies</div>
+          <div className='text-2xl '>Explore Movies</div>
           {/* select custom */}
           <div className='flex gap-2 flex-col md:flex-row'>
-            <CustomSelect Genre={Genre} />
-            
+             <CustomSelect Genre={Genre} />
+             <Select placeHolder={"Sort By"} options={sortOptions} /> 
           </div>
         </div>
 
@@ -73,6 +76,7 @@ const MoviePage = () => {
         }
         {loading && <Loader />}
       </div>
+  
     </div>
   )
 }

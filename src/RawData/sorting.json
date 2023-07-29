@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
     "popularity.desc",
     "popularity.asc",
@@ -11,3 +12,23 @@
     "primary_release_date.asc"
 ]
 
+=======
+[  
+   {
+    "name":"Popularity Ascending",
+    "value":"popularity.asc" 
+   },
+   {
+    "name":"Popularity Desending",
+    "value":"popularity.desc" 
+   },
+   {
+    "name":"Relesed_Date Ascending",
+    "value":"primary_release_date.asc" 
+   },
+   {
+    "name":"Relesed_Date Desending",
+    "value":"primary_release_date.desc" 
+   }
+]
+>>>>>>> db675cd564b7eec690b99f4fa8d57f21186fde84
