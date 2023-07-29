@@ -57,7 +57,7 @@ const MoviePage = () => {
     return () => window.removeEventListener("scroll",  isAtbottom)
   }, []);
   return (
-    <div className='bg-[#BBDEF0] w-full' >
+    <div className='' >
       <div className='max-w-7xl mx-auto w-11/12'>
         <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
           <div className='text-2xl '>Explore Movies</div>
