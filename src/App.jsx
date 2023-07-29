@@ -7,8 +7,8 @@ function App() {
   return (
     <>
     <Routes>
-         {/* <p>hii</p> */}
       <Route path="/" element={<Home />}>
+       {/* <Route index element={name the home page outlet element} /> */}
             <Route path="/movies" element={<MoviePage />} />
             <Route path="/movie/:movieId" element={<Testing/>}/>
          </Route>
