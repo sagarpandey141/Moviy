@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+[
+    "popularity.desc",
+    "popularity.asc",
+    "revenue.desc",
+    "revenue.asc",
+    "vote_average.desc",
+    "vote_average.asc",
+    "vote_count.asc",
+    "vote_count.desc",
+    "primary_release_date.desc",
+    "primary_release_date.asc"
+]
+
+=======
 [  
    {
     "name":"Popularity Ascending",
@@ -16,3 +31,4 @@
     "value":"primary_release_date.desc" 
    }
 ]
+>>>>>>> db675cd564b7eec690b99f4fa8d57f21186fde84
