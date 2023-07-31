@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { apiConnector } from '../sevices/axios';
 import { movieUrls } from '../sevices/urls';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Testing = () => {
 
@@ -9,28 +9,48 @@ const Testing = () => {
     const {movieId}=useParams();
     const [MovieSpecificData,setMovieSpecificData]=useState(null);
     const[Cast,setCast]=useState([]);
-    async function GetSpecificMovieData()
-    {
-        const response= await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}`);
-        if(response){
-          setMovieSpecificData(response);
-        }
-    }
+    const[OfficialVideo,setOfficialVideo]=useState([]);
+    const[SimilarVideo,setSimilar]=useState([]);
+
+  async function GetSpecificMovieData()
+  {
+      const response= await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}`);
+      if(response){
+        setMovieSpecificData(response);
+      }
+  }
    
-  //  GetSpecificMovieData();
-   console.log("cast",Cast);
   async function GetCredit(){
             const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/credits`)
             if(response){
                setCast(response?.data?.cast);
             }
   }
+
+  async function getOfficialVideo(){
+       const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/videos`)
+       console.log("resp video",response);
+       if(response)
+       { 
+          setOfficialVideo(response?.data?.result);
+       }
+  }
+
+  async function getSimilarVideo(){
+         const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/similar`);
+         console.log("similar",response);
+         if(response){
+             setSimilar(response?.data?.results);
+         }
+  }
     useEffect(()=>{
         GetSpecificMovieData();
         GetCredit();
+        getOfficialVideo();
+        getSimilarVideo();
     },[movieId])
    
-    console.log("getspecifec",MovieSpecificData);
+
   return (
     <div className='bg-[#08172f]  w-screen  h-max '>
           {/*section 1*/}
@@ -93,6 +113,46 @@ const Testing = () => {
                       }
                  </div>
           </div>
+
+          {/*official video */}
+          <div>
+              <h2>Official Video</h2>
+               <video>
+                   <source src={OfficialVideo?.AE?.link}/>
+               </video>
+          </div>
+
+          {/*similar movie*/}
+          <div>
+               <h2 className='text-white text-3xl ml-36'>Similar Video</h2>
+                <div className=' mt-6 flex justify-center gap-4'>
+                    {
+                      SimilarVideo?.slice(0,5)?.map((data,index)=>(
+                        <Link to={`/movie/${data?.id}`}>
+                        <div key={index} >
+                               
+                               {/*poster */}
+                               <img className=' h-[19rem]  rounded-lg' src={imageBaseUrl+"w400"+data?.poster_path}/>
+                               <p>{data?.vote_average}</p>
+                               <p>{}</p>
+
+                               {/*name*/}
+                               <p className='text-white text-[20px] ml-3'>
+                                    {data?.original_title && (
+                                      data.original_title.length > 13
+                                        ? `${data.original_title.split(' ').slice(0, 3).join(' ')}...`
+                                        : data.original_title
+                                    )}
+                              </p>
+                               {/*date*/}
+                               <p className=' mt-2 ml-3 text-slate-400'>{data?.release_date}</p>
+                        </div>
+                        </Link>
+                      ))
+                    }
+                </div>
+          </div>
+
     </div>
   )
 }
