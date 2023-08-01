@@ -11,7 +11,7 @@ const Testing = () => {
     const[Cast,setCast]=useState([]);
     const[OfficialVideo,setOfficialVideo]=useState([]);
     const[SimilarVideo,setSimilar]=useState([]);
-
+    const[Recommended,setRecommended]=useState([]);
   async function GetSpecificMovieData()
   {
       const response= await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}`);
@@ -43,11 +43,23 @@ const Testing = () => {
              setSimilar(response?.data?.results);
          }
   }
+
+  async function RecommendadVideo(){
+        const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/recommendations`);
+        console.log(
+          "recomme",response
+        )
+        if(response){
+           setRecommended(response.data.results);
+        }
+
+  }
     useEffect(()=>{
         GetSpecificMovieData();
         GetCredit();
         getOfficialVideo();
         getSimilarVideo();
+        RecommendadVideo();
     },[movieId])
    
 
@@ -152,7 +164,33 @@ const Testing = () => {
                     }
                 </div>
           </div>
-
+           
+           {/*recommendation*/}
+           <div className=' mt-6'>
+                <h2 className='text-white text-2xl ml-28'>Recommendations</h2>
+              
+                  <div className='flex justify-center gap-4 mt-5'>
+                      {
+                        Recommended.slice(0,6).map((data,index)=>(
+                          <Link to={`/movie/${data?.id}`}>
+                            <div key={index} className=''>
+                                  {/*posster pth*/}
+                                  <img className=' h-[19rem]  rounded-lg' src={imageBaseUrl+"w400"+data?.poster_path}/>
+                                  <p className='text-white text-[20px] ml-3'>
+                                      {data?.original_title && (
+                                        data.original_title.length > 13
+                                          ? `${data.original_title.split(' ').slice(0, 3).join(' ')}...`
+                                          : data.original_title
+                                      )}
+                                </p>
+                                  <h4 className=' mt-2 ml-3 text-slate-400 mb-10'>{data?.release_date}</h4>
+                            </div>
+                            </Link>
+                        ))
+                      }
+                  </div>
+          
+           </div>
     </div>
   )
 }
