@@ -42,14 +42,14 @@ const Card = ({ movie }) => {
         </div>
         <div className='absolute flex justify-end gap-2 bottom-0 -translate-y-1/2 w-full  text-white pr-2'>
           {
-            arr.map((genreName, index) => (<div key={index} className='bg-[#f5427b] rounded-sm p-[2px] text-xs '>{genreName}
+            arr.map((genreName, index) => (<div key={index} className='bg-[#f5427b] rounded-sm p-[2px] text-xs'>{genreName}
             </div>))
           }
 
         </div>
       </div>
       <div className='mt-8 w-full font-semibold '>
-        <h2 className=''>{movie.title}</h2>
+        <h2 className='text-white'>{movie.title}</h2>
         <p className='font-normal text-gray-500   '>{DateFormator(movie.release_date)}</p>
       </div>
     </div>
