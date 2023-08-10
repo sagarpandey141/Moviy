@@ -2,19 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { apiConnector } from '../sevices/axios';
 import { movieUrls } from '../sevices/urls';
 import { Link, useParams } from 'react-router-dom';
+import {Swiper, SwiperSlide} from "swiper/react"
+import "swiper/css"
+import "swiper/css/free-mode"
+import "swiper/css/pagination"
+import { Autoplay,FreeMode,Navigation, Pagination}  from 'swiper/modules'
+import axios from 'axios';
+import Slider from './Slider';
 
 const Testing = () => {
 
     const imageBaseUrl=import.meta.env.VITE_IMAGE_BASE_URL
+    const thumnail_url="https://www.googleapis.com/youtube/v3/videos?key=AIzaSyATLv1nHCi0x45asS0Zlwvv-Zdr7Vd--RA&id="
     const {movieId}=useParams();
     const [MovieSpecificData,setMovieSpecificData]=useState(null);
-    const[Cast,setCast]=useState([]);
-    const[OfficialVideo,setOfficialVideo]=useState([]);
-    const[SimilarVideo,setSimilar]=useState([]);
-    const[Recommended,setRecommended]=useState([]);
+    const [Cast,setCast]=useState([]);
+    const [OfficialVideo,setOfficialVideo]=useState([]);
+    const [SimilarVideo,setSimilar]=useState([]);
+    const [Recommended,setRecommended]=useState([]);
   async function GetSpecificMovieData()
   {
       const response= await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}`);
+      console.log("hel",response)
       if(response){
         setMovieSpecificData(response);
       }
@@ -32,10 +41,12 @@ const Testing = () => {
        console.log("resp video",response);
        if(response)
        { 
-          setOfficialVideo(response?.data?.result);
+          setOfficialVideo(response?.data?.results);
        }
   }
 
+  console.log("official",OfficialVideo);
+   
   async function getSimilarVideo(){
          const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/similar`);
          console.log("similar",response);
@@ -54,16 +65,21 @@ const Testing = () => {
         }
 
   }
+
+
     useEffect(()=>{
+  
         GetSpecificMovieData();
         GetCredit();
         getOfficialVideo();
         getSimilarVideo();
         RecommendadVideo();
+
     },[movieId])
    
 
   return (
+    
     <div className='bg-[#08172f]  w-screen  h-max '>
           {/*section 1*/}
          <div className='flex  justify-center  gap-20 '>
@@ -82,7 +98,7 @@ const Testing = () => {
 
                       {/*genres*/}
                         {
-                          MovieSpecificData?.data?.genres?.map((index,data)=>{
+                          MovieSpecificData?.data?.genres?.map((data,index)=>{
                           return <p key={index}>{data?.name}</p>
                         })
                       }
@@ -125,6 +141,32 @@ const Testing = () => {
                       }
                  </div>
           </div>
+          
+          {/*official video*/}
+          <div>
+              <h2>Official Videos</h2>
+               <div>
+               <Swiper
+                    modules={[FreeMode, Pagination, Autoplay]}
+                    setWrapperSize={20}
+                    slidesPerView={2}
+                    spaceBetween={20}
+                    loop={true}
+                    className='max-w-3xl mx-auto  '
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction:false
+                    }}
+                  
+                     >
+                     {
+                        OfficialVideo.map((data,index)=>(
+                        <Slider OfficialVideo={data} url={ thumnail_url}/>
+                      ))
+                     }
+                </Swiper>
+               </div>
+          </div>
 
           {/*official video */}
           <div>
@@ -140,8 +182,8 @@ const Testing = () => {
                 <div className=' mt-6 flex justify-center gap-4'>
                     {
                       SimilarVideo?.slice(0,5)?.map((data,index)=>(
-                        <Link to={`/movie/${data?.id}`}>
-                        <div key={index} >
+                        <Link to={`/movie/${data?.id}`}  key={index}>
+                        <div >
                                
                                {/*poster */}
                                <img className=' h-[19rem]  rounded-lg' src={imageBaseUrl+"w400"+data?.poster_path}/>
@@ -172,8 +214,8 @@ const Testing = () => {
                   <div className='flex justify-center gap-4 mt-5'>
                       {
                         Recommended.slice(0,6).map((data,index)=>(
-                          <Link to={`/movie/${data?.id}`}>
-                            <div key={index} className=''>
+                          <Link to={`/movie/${data?.id}`} key={index}  >
+                            <div className=''>
                                   {/*posster pth*/}
                                   <img className=' h-[19rem]  rounded-lg' src={imageBaseUrl+"w400"+data?.poster_path}/>
                                   <p className='text-white text-[20px] ml-3'>
