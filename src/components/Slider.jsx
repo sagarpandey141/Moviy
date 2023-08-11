@@ -1,26 +1,23 @@
-import React, { useEffect } from 'react'
-import { SwiperSlide } from 'swiper/react'
+import React, { useEffect, useState } from 'react'
 
 const Slider = ({OfficialVideo,url}) => {
-    console.log("off",OfficialVideo,url);
-
+    const [imageUrl,setImageUrl] = useState(null);
     async function GetThumbnail(key){
         const response=await fetch(url+key+"&part=snippet");
         const data=await response.json();
          console.log("resp",data);
       
-       return data?.items?.[0]?.snippet?.thumbnails?.medium?.url
+       return data?.items[0]?.snippet?.thumbnails?.medium?.url
   }
-    useEffect(()=> {
-        (async function (){
-            const image = await GetThumbnail(OfficialVideo.key)
-            console.log("imagee",image);
-        })();
-    },[]);
-    
-  return (
-    <SwiperSlide>Slider</SwiperSlide>
-  )
+    // useEffect(()=> {
+    //     (async function (){
+    //         const image = await GetThumbnail(OfficialVideo.key)
+    //         console.log("image",image);
+    //         setImageUrl(image);
+    //     })();
+    // },[]);
+  
+  return ( <img src={imageUrl} alt="name" />)
 }
 
 export default Slider
