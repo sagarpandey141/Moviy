@@ -1,4 +1,4 @@
-import React, { useEffect, useRef,useState } from 'react'
+import React from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { DateFormator } from '../utils/DateFormator';
@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import NoPoster from "../assets/no-poster.jpeg"
 
 const Card = ({ movie }) => {
-  const ref = useRef();
   const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
   let index = 0;
   const arr = [];

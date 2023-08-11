@@ -31,7 +31,7 @@ const Select = ({placeHolder,options}) => {
 // correction is pending
 
   return (
-        <div className=' lg:max-w-xl  min-w-[350px]' ref={ref} >
+        <div className=' lg:max-w-xl  min-w-[300px] bg-white' ref={ref} >
           <div className='border border-black px-2 py-1 relative '>
             <div className='flex justify-between '>
               <div className='flex justify-between flex-grow' >
