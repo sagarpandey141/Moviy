@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { apiConnector } from '../sevices/axios';
-import { movieUrls } from '../sevices/urls';
-import { Link, useParams } from 'react-router-dom';
+import { apiConnector } from '../../sevices/axios';
+import { movieUrls } from '../../sevices/urls';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {Swiper, SwiperSlide} from "swiper/react"
 import "swiper/css"
 import "swiper/css/free-mode"
@@ -9,18 +9,21 @@ import "swiper/css/pagination"
 import { Autoplay,FreeMode,Navigation, Pagination}  from 'swiper/modules'
 import axios from 'axios';
 import Slider from './Slider';
-
+import Modal from './Modal';
+import noPoster from "../../assets/no-poster.jpeg"
 const Testing = () => {
 
     const imageBaseUrl=import.meta.env.VITE_IMAGE_BASE_URL
-    const thumnail_url="https://www.googleapis.com/youtube/v3/videos?key=AIzaSyATLv1nHCi0x45asS0Zlwvv-Zdr7Vd--RA&id="
+    const thumnail_url="https://www.googleapis.com/youtube/v3/videos?key=AIzaSyBf-zXFP5QpHzoyX6DndKdir2VCNDYmaWI&id="
     const {movieId}=useParams();
     const [MovieSpecificData,setMovieSpecificData]=useState(null);
     const [Cast,setCast]=useState([]);
     const [OfficialVideo,setOfficialVideo]=useState([]);
     const [SimilarVideo,setSimilar]=useState([]);
     const [Recommended,setRecommended]=useState([]);
-  async function GetSpecificMovieData()
+    const[modal,setModal]=useState(null);
+    const navigate=useNavigate();
+   async function GetSpecificMovieData()
   {
       const response= await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}`);
       console.log("hel",response)
@@ -45,7 +48,7 @@ const Testing = () => {
        }
   }
 
-  console.log("official",OfficialVideo);
+  console.log("similar",SimilarVideo);
    
   async function getSimilarVideo(){
          const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/similar`);
@@ -79,12 +82,13 @@ const Testing = () => {
    
 
   return (
-    
-    <div className='bg-[#08172f]  w-screen  h-max '>
+ 
+    <div className='bg-[#08172f]  w-screen  h-max  overflow-hidden'>
+       
+       <div className='relative'>
           {/*section 1*/}
          <div className='flex  justify-center  gap-20 '>
-            {/*<img src={imageBaseUrl+"w400"+MovieSpecificData?.data?.backdrop_path}/>*/}
-            
+             
             <div className=' mt-28 flex  justify-center  gap-20 text-white'>
                     {/*left part*/}
                   <div>
@@ -94,14 +98,16 @@ const Testing = () => {
               {/*right part*/}
               <div className='max-w-[50%]'>
                         <h2 className=' text-4xl'>{MovieSpecificData?.data?.belongs_to_collection?.name}</h2>
-                        <p className=" text-slate-600 italic mt-1 text-2xl">{MovieSpecificData?.data?.tagline}</p>
+                        <p className=" text-slate-400 italic mt-1 text-2xl">{MovieSpecificData?.data?.tagline}</p>
 
                       {/*genres*/}
-                        {
-                          MovieSpecificData?.data?.genres?.map((data,index)=>{
-                          return <p key={index}>{data?.name}</p>
-                        })
-                      }
+                        <div className='flex gap-3 mt-1 '>
+                            {
+                                MovieSpecificData?.data?.genres?.map((data,index)=>{
+                                return <p key={index} className=' bg-pink-600 p-1 rounded-md' >{data?.name}</p>
+                              })
+                            }
+                        </div>
                   {/*vote averge*/}
                   <div className=' flex  rounded-full bg-slate-800 w-16 h-16 items-center text-white'>
                       <p className=' text-center text-2xl ml-4'>{MovieSpecificData?.data?.vote_average}</p>
@@ -125,6 +131,7 @@ const Testing = () => {
             </div>
          </div>
 
+
          {/*section 2 CAST*/}
           <div className=' mt-10'>
                   <p className='text-white text-3xl  translate-x-48'>Top Cast </p>
@@ -142,51 +149,45 @@ const Testing = () => {
                  </div>
           </div>
           
+        
           {/*official video*/}
-          <div>
-              <h2>Official Videos</h2>
-               <div>
+          <div className=' mt-7'>
+              <h2 className=' text-white text-3xl translate-x-36'>Official Videos</h2>
+               <div className=' mt-6'>
                <Swiper
                     modules={[FreeMode, Pagination, Autoplay]}
                     setWrapperSize={20}
-                    slidesPerView={2}
+                    slidesPerView={4}
                     spaceBetween={20}
-                    loop={true}
-                    className='max-w-3xl mx-auto  '
-                    autoplay={{
-                        delay: 2500,
-                        disableOnInteraction:false
-                    }}
+                    autoplay={false}
+                    className='w-[77rem] mx-auto  h-[17rem] '
+                    
                   
                      >
                      {
                         OfficialVideo.map((data,index)=>(
-                        <Slider OfficialVideo={data} url={ thumnail_url}/>
+                          <SwiperSlide>
+                             <Slider OfficialVideo={data} url={ thumnail_url} setModal={setModal}/>
+                          </SwiperSlide>
+                       
                       ))
                      }
                 </Swiper>
                </div>
           </div>
 
-          {/*official video */}
-          <div>
-              <h2>Official Video</h2>
-               <video>
-                   <source src={OfficialVideo?.AE?.link}/>
-               </video>
-          </div>
-
+          
           {/*similar movie*/}
-          <div>
+          <div className=' mt-6'>
                <h2 className='text-white text-3xl ml-36'>Similar Video</h2>
                 <div className=' mt-6 flex justify-center gap-4'>
                     {
                       SimilarVideo?.slice(0,5)?.map((data,index)=>(
-                        <Link to={`/movie/${data?.id}`}  key={index}>
-                        <div >
-                               
+                       <Link to={`/movie/${data.id}`} key={index}>
+                         <div className=''>
+                                 
                                {/*poster */}
-                               <img className=' h-[19rem]  rounded-lg' src={imageBaseUrl+"w400"+data?.poster_path}/>
+                               <img className=' h-[22rem]  rounded-lg  cursor-pointer' src={ data?.poster_path!=null ? imageBaseUrl+"w400"+data?.poster_path :noPoster }/>
                                <p>{data?.vote_average}</p>
                                <p>{}</p>
 
@@ -200,7 +201,7 @@ const Testing = () => {
                               </p>
                                {/*date*/}
                                <p className=' mt-2 ml-3 text-slate-400'>{data?.release_date}</p>
-                        </div>
+                          </div>
                         </Link>
                       ))
                     }
@@ -209,15 +210,15 @@ const Testing = () => {
            
            {/*recommendation*/}
            <div className=' mt-6'>
-                <h2 className='text-white text-2xl ml-28'>Recommendations</h2>
+                <h2 className='text-white text-2xl ml-36'>Recommendations</h2>
               
                   <div className='flex justify-center gap-4 mt-5'>
                       {
-                        Recommended.slice(0,6).map((data,index)=>(
+                        Recommended.slice(0,5).map((data,index)=>(
                           <Link to={`/movie/${data?.id}`} key={index}  >
                             <div className=''>
                                   {/*posster pth*/}
-                                  <img className=' h-[19rem]  rounded-lg' src={imageBaseUrl+"w400"+data?.poster_path}/>
+                                  <img className=' h-[22rem]  rounded-lg' src={data?.poster_path!=null ? imageBaseUrl+"w400"+data?.poster_path :noPoster}/>
                                   <p className='text-white text-[20px] ml-3'>
                                       {data?.original_title && (
                                         data.original_title.length > 13
@@ -233,6 +234,16 @@ const Testing = () => {
                   </div>
           
            </div>
+       </div>
+        
+          {/*modal*/}
+                
+                {
+                  modal && (
+                    <Modal data={modal} setModal={setModal} ></Modal>
+                  )
+                }
+
     </div>
   )
 }
