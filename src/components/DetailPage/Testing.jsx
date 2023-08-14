@@ -11,6 +11,10 @@ import axios from 'axios';
 import Slider from './Slider';
 import Modal from './Modal';
 import noPoster from "../../assets/no-poster.jpeg"
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import NoCast from "../../assets/not-av.jpg"
+
 const Testing = () => {
 
     const imageBaseUrl=import.meta.env.VITE_IMAGE_BASE_URL
@@ -23,10 +27,11 @@ const Testing = () => {
     const [Recommended,setRecommended]=useState([]);
     const[modal,setModal]=useState(null);
     const navigate=useNavigate();
-   async function GetSpecificMovieData()
+
+    async function GetSpecificMovieData()
   {
       const response= await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}`);
-      console.log("hel",response)
+   
       if(response){
         setMovieSpecificData(response);
       }
@@ -48,7 +53,7 @@ const Testing = () => {
        }
   }
 
-  console.log("similar",SimilarVideo);
+ 
    
   async function getSimilarVideo(){
          const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/similar`);
@@ -68,16 +73,20 @@ const Testing = () => {
         }
 
   }
-
+ 
+  async function GetDirector(){
+     const response=await apiConnector("GET",movieUrls+`movie/${movieId}/credits?api_key=AIzaSyBf-zXFP5QpHzoyX6DndKdir2VCNDYmaWI`)
+    
+  }
 
     useEffect(()=>{
-  
+        GetDirector();
         GetSpecificMovieData();
         GetCredit();
         getOfficialVideo();
         getSimilarVideo();
         RecommendadVideo();
-
+        window.scrollTo({top:0,left:0,behavior:'smooth'})
     },[movieId])
    
 
@@ -86,10 +95,19 @@ const Testing = () => {
     <div className='bg-[#08172f]  w-screen  h-max  overflow-hidden'>
        
        <div className='relative'>
+       
           {/*section 1*/}
-         <div className='flex  justify-center  gap-20 '>
+         <div className='flex  justify-center  gap-20 bg-[#08172f] '
+          //  style={{
+          //     backgroundImage: `url(${imageBaseUrl+"w400"+MovieSpecificData?.data?.backdrop_path})`,
+          //     backgroundSize: "cover",
+          //     backgroundPosition: "center",
+          //     backgroundRepeat: "no-repeat",
+              
+          //   }}
+          >
              
-            <div className=' mt-28 flex  justify-center  gap-20 text-white'>
+            <div className=' mt-28 flex  justify-center  gap-20 text-white '>
                     {/*left part*/}
                   <div>
                        <img className=' h-[32rem] rounded-md' src={imageBaseUrl+"w400"+MovieSpecificData?.data?.poster_path}/>
@@ -109,8 +127,18 @@ const Testing = () => {
                             }
                         </div>
                   {/*vote averge*/}
-                  <div className=' flex  rounded-full bg-slate-800 w-16 h-16 items-center text-white'>
-                      <p className=' text-center text-2xl ml-4'>{MovieSpecificData?.data?.vote_average}</p>
+                  <div className=' flex mt-4  rounded-full bg-slate-800  w-24 h-24 items-center text-white'>
+                  <CircularProgressbar
+                      maxValue={10} value={MovieSpecificData?.data?.vote_average} text={`${MovieSpecificData?.data?.vote_average?.toFixed(2)}%`}
+                      background={true}
+                      backgroundPadding={5}
+
+                      styles={buildStyles({
+                        pathColor: MovieSpecificData?.data?.vote_average >= 7 ? "green" : "#FFA41B",
+                        backgroundColor: "#000000",
+                        trailColor: '#000000'
+                      })}
+                  />
                   </div>
                   {/*overview*/}
                   <div>
@@ -119,10 +147,11 @@ const Testing = () => {
                   </div>
                   {/*status released runtime */}
                   <div className='flex gap-2 mt-7'>
-                     <p className=''>Status: <span className=' text-slate-500'>{MovieSpecificData?.data?.status}</span></p>
-                     <p>Release Date: <span className=' text-slate-500'>{MovieSpecificData?.data?.release_date}</span></p>
-                     <p>Runtime: <span className=' text-slate-500'>{MovieSpecificData?.data?.runtime}</span></p>
+                     <p className=' text-lg'>Status: <span className=' text-slate-500'>{MovieSpecificData?.data?.status}</span></p>
+                     <p className='text-lg'>Release Date: <span className=' text-slate-500'>{MovieSpecificData?.data?.release_date}</span></p>
+                     <p className='text-lg'>Runtime: <span className=' text-slate-500'>{MovieSpecificData?.data?.runtime}</span></p>
                   </div>
+                 <div className=' border-b-[1px] h-1 border-slate-500 mt-4'></div>
                   {/*director*/}
                   <div>
                     {/* <p>Director:{MovieSpecificData?data?.}</p> */}
@@ -140,7 +169,7 @@ const Testing = () => {
                         Cast.slice(0,6).map((data,index)=>(
                         
                             <div key={index} className=''>
-                                  <img className='rounded-full h-52 w-48' src={imageBaseUrl+"w400"+data?.profile_path}/>
+                                <img className='rounded-full  aspect-square object-right-top w-48 object-cover' src={data?.profile_path?imageBaseUrl+"w400"+data?.profile_path:NoCast}/>
                                   <h2 className=' text-lg text-white ml-5 mt-1'>{data?.name}</h2>
                                   <p className=' mt-1 ml-5 text-slate-400'>{data?.character}</p>
                             </div>
@@ -151,7 +180,9 @@ const Testing = () => {
           
         
           {/*official video*/}
-          <div className=' mt-7'>
+          {
+            OfficialVideo.length>0 && (
+              <div className=' my-7'>
               <h2 className=' text-white text-3xl translate-x-36'>Official Videos</h2>
                <div className=' mt-6'>
                <Swiper
@@ -176,9 +207,14 @@ const Testing = () => {
                </div>
           </div>
 
+            )
+          }
+          
           
           {/*similar movie*/}
-          <div className=' mt-6'>
+        {
+          SimilarVideo.length>0 && (
+            <div className=' my-6'>
                <h2 className='text-white text-3xl ml-36'>Similar Video</h2>
                 <div className=' mt-6 flex justify-center gap-4'>
                     {
@@ -207,9 +243,13 @@ const Testing = () => {
                     }
                 </div>
           </div>
+          )
+        }
            
            {/*recommendation*/}
-           <div className=' mt-6'>
+           {
+              Recommended.length>0 && (
+                <div className=' my-6'>
                 <h2 className='text-white text-2xl ml-36'>Recommendations</h2>
               
                   <div className='flex justify-center gap-4 mt-5'>
@@ -234,6 +274,9 @@ const Testing = () => {
                   </div>
           
            </div>
+               )
+           }
+
        </div>
         
           {/*modal*/}
