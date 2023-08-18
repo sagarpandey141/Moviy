@@ -12,7 +12,7 @@ const Card = ({ movie }) => {
   const arr = [];
   for (let t = 0; t < 2; t++) {
     for (let x of Genre) {
-      if (x.id === movie.genre_ids[index]) {
+      if (x.id == movie?.genre_ids[index]) {
         arr.push(x.name);
         index++;
         break;
@@ -21,7 +21,8 @@ const Card = ({ movie }) => {
   }
 
   return (
-    <div className="flex flex-col mb-5">
+
+       <div className="flex flex-col w-fit mb-5">
       <div className="relative hover:brightness-75 duration-500 cursor-pointer">
         <Link to={`/movie/${movie.id}`}>
           <img
@@ -35,7 +36,7 @@ const Card = ({ movie }) => {
             loading="lazy"
           />
         </Link>
-        <div className="absolute bottom-0 translate-y-1/2 left-2 w-[20%]">
+        <div className="absolute bottom-0 translate-y-1/2 left-2 w-10">
           <CircularProgressbar
             maxValue={10}
             value={movie.vote_average}
@@ -49,8 +50,8 @@ const Card = ({ movie }) => {
             })}
           />
         </div>
-        <div className="absolute flex justify-end gap-2 bottom-0 -translate-y-1/2 w-full text-white pr-2">
-          {arr.map((genreName, index) => (
+        <div className="absolute flex justify-end flex-wrap gap-2 bottom-0 right-0 text-white p-2">
+          { arr.map((genreName, index) => (
             <div
               key={index}
               className="bg-[#f5427b] rounded-sm p-[2px] text-xs"
@@ -60,10 +61,10 @@ const Card = ({ movie }) => {
           ))}
         </div>
       </div>
-      <div className="mt-8 w-full font-semibold ">
-        <h2 className="text-white">{movie.title}</h2>
+      <div className="mt-8 w-full font-semibold">
+        <h2 className="text-white">{movie.title ? movie.title : movie.name}</h2>
         <p className="font-normal text-gray-500   ">
-          {DateFormator(movie.release_date)}
+          {DateFormator(movie.release_date? movie.release_date : movie.first_air_date)}
         </p>
       </div>
     </div>

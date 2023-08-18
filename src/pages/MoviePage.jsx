@@ -71,14 +71,14 @@ const MoviePage = () => {
     return () => window.removeEventListener("scroll", isAtbottom);
   }, []);
   return (
-    <div className="bg-black">
-      <div className="max-w-4xl mx-auto w-11/12">
+    <div className='bg-[#08172f]' >
+      <div className='max-w-4xl mx-auto w-11/12 '>
         <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
-          <div className="text-2xl text-white">Explore Movies</div>
+          <div className='text-2xl text-white '>Explore Movies</div>
           {/* select custom */}
-          <div className="flex gap-2 flex-col md:flex-row">
-            <CustomSelect Genre={Genre} />
-            <Select placeHolder={"Sort By"} options={sortOptions} />
+          <div className='flex gap-2 flex-col md:flex-row  text-white'>
+             <CustomSelect Genre={Genre}  />
+             <Select placeHolder={"Sort By"} options={sortOptions} /> 
           </div>
         </div>
 
