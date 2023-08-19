@@ -166,6 +166,9 @@ const Testing = () => {
                     {/* <p>Director:{MovieSpecificData?data?.}</p> */}
                   </div>
               </div>
+
+
+
             </div>
          </div>
 
@@ -297,7 +300,7 @@ const Testing = () => {
                 }
 
     </div>
-  )
-}
+  );
+};
+export default Testing;
 
-export default Testing

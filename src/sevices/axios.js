@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({});
-export const apiConnector = (method,url,urlAddOns=undefined) => {
+export const apiConnector = (method,url,urlAddOns=undefined,header) => {
      return instance({
         method:`${method}`,
         url:`${url}`+ `${urlAddOns ? urlAddOns : ""}`,
