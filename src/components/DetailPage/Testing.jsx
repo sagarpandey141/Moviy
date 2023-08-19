@@ -79,7 +79,13 @@ const Testing = () => {
     
   }
 
+  // async function getGenereTv(){
+  //    const response=await apiConnector("GET","https://api.themoviedb.org/3/genre/tv/list?language=en");
+  //    console.log("genre",response);
+  // }
     useEffect(()=>{
+
+      
         GetDirector();
         GetSpecificMovieData();
         GetCredit();
@@ -89,6 +95,9 @@ const Testing = () => {
         window.scrollTo({top:0,left:0,behavior:'smooth'})
     },[movieId])
    
+  //  useEffect(()=>{
+  //    getGenereTv();
+  //  },[])
 
   return (
  
