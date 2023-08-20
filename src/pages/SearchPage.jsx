@@ -22,7 +22,7 @@ const SearchPage = () => {
     },[searchPage])    
 
   return (
-    <div className='bg-[#071324] '>
+    <div className='bg-[#08172f] pt-20'>
    
     <div className='max-w-4xl mx-auto w-11/12' >
     <div className='italic text-2xl text-gray-400'>Search results ...{} </div>
