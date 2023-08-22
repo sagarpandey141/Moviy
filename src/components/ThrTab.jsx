@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { apiConnector } from '../sevices/axios';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import {buildStyles} from 'react-circular-progressbar';
+import {useNavigate} from "react-router-dom"
 const ThrTab = () => {
 
     const[days,setDays]=useState([]);
@@ -10,6 +11,7 @@ const ThrTab = () => {
     const[PopularTvShow,setPopularTvShow]=useState([]);
     const[currentClick,setCurrentClick]=useState("days");
     const[currentClickWhat,setCurrentClickWhat]=useState("movie");
+    const navigate=useNavigate();
     const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
     const BASE_URL=import.meta.env.VITE_BASE_URL;
 
@@ -78,7 +80,9 @@ const ThrTab = () => {
                               days?.slice(0,5)?.map((data,index)=>(
                                  <div key={index} className='relative' >
                                          {/*img*/}
-                                         <img className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
+                                         <img className=' h-[19rem]  w-52 rounded-xl cursor-pointer' onClick={()=>{
+                                             navigate(`/movie/${data?.id}`)
+                                         }} src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                          {/*genre*/}
                                          
@@ -117,7 +121,9 @@ const ThrTab = () => {
                             week?.slice(0,5)?.map((data,index)=>(
                                   <div key={index} className='relative' >
                                           {/*img*/}
-                                          <img  className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
+                                          <img  className=' h-[19rem]  w-52 rounded-xl cursor-pointer' onClick={()=>{
+                                             navigate(`/movie/${data?.id}`)
+                                         }} src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                           {/*genre*/}
                                           
@@ -177,7 +183,9 @@ const ThrTab = () => {
                                   PopularMovie.slice(0,5).map((data,index)=>(
                                        <div key={index} className='relative'>
                                                  {/*img*/}
-                                         <img className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
+                                         <img className=' h-[19rem]  w-52 rounded-xl cursor-pointer' onClick={()=>{
+                                             navigate(`/movie/${data?.id}`)
+                                         }} src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                           {/*genre*/}
                                          
@@ -217,7 +225,9 @@ const ThrTab = () => {
                                          <div key={index} className='relative'>
 
                                                         {/*img*/}
-                                         <img className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
+                                         <img className=' h-[19rem]  w-52 rounded-xl cursor-pointer'onClick={()=>{
+                                             navigate(`/movie/${data?.id}`)
+                                         }} src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                                        {/*genre*/}
                                          
