@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { apiConnector } from '../sevices/axios';
-
-
+import { CircularProgressbar } from 'react-circular-progressbar';
+import {buildStyles} from 'react-circular-progressbar';
 const ThrTab = () => {
 
     const[days,setDays]=useState([]);
@@ -52,7 +52,7 @@ const ThrTab = () => {
 
     },[])
      
-    console.log("tvshow",PopularTvShow);
+    console.log("popular move",PopularMovie);
   return (
     <div className=' text-white'>
         
@@ -76,14 +76,28 @@ const ThrTab = () => {
                     <div className='flex justify-center gap-5  mt-6'>
                           {
                               days?.slice(0,5)?.map((data,index)=>(
-                                 <div key={index} >
+                                 <div key={index} className='relative' >
                                          {/*img*/}
                                          <img className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                          {/*genre*/}
                                          
-                                         {/*round*/}
-                                    
+                                         
+                                           {/*round*/}
+                                        <div className="absolute bottom-0 -translate-y-12 left-2 w-10">
+                                          <CircularProgressbar
+                                                maxValue={10}
+                                                value={data.vote_average}
+                                                text={`${data.vote_average?.toFixed(2)}%`}
+                                                background={true}
+                                                backgroundPadding={5}
+                                                styles={buildStyles({
+                                                  pathColor: data.vote_average >= 7 ? "green" : "#FFA41B",
+                                                  backgroundColor: "white",
+                                                  trailColor: "#fff",
+                                                })}
+                                            />
+                                          </div>
                                          {/*name*/}
                                         <p className=' text-lg'> {data?.original_title && (
                                             data.original_title.length > 13
@@ -101,13 +115,27 @@ const ThrTab = () => {
                     <div className='flex justify-center gap-3  mt-6'>
                          {
                             week?.slice(0,5)?.map((data,index)=>(
-                                  <div key={index} >
+                                  <div key={index} className='relative' >
                                           {/*img*/}
                                           <img  className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                           {/*genre*/}
                                           
-                                          {/*round*/}
+                                            {/*round*/}
+                                        <div className="absolute bottom-0 -translate-y-12 left-2 w-10">
+                                          <CircularProgressbar
+                                                maxValue={10}
+                                                value={data.vote_average}
+                                                text={`${data.vote_average?.toFixed(2)}%`}
+                                                background={true}
+                                                backgroundPadding={5}
+                                                styles={buildStyles({
+                                                  pathColor: data.vote_average >= 7 ? "green" : "#FFA41B",
+                                                  backgroundColor: "white",
+                                                  trailColor: "#fff",
+                                                })}
+                                            />
+                                          </div>
                                       
                                           {/*name*/}
                                           <p> {data?.original_title && (
@@ -147,14 +175,27 @@ const ThrTab = () => {
                          <div  className='flex justify-center gap-5  mt-6'>
                                 {
                                   PopularMovie.slice(0,5).map((data,index)=>(
-                                       <div key={index}>
+                                       <div key={index} className='relative'>
                                                  {/*img*/}
                                          <img className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                           {/*genre*/}
-
+                                         
                                           {/*round*/}
-
+                                        <div className="absolute bottom-0 -translate-y-12 left-2 w-10">
+                                          <CircularProgressbar
+                                                maxValue={10}
+                                                value={data.vote_average}
+                                                text={`${data.vote_average?.toFixed(2)}%`}
+                                                background={true}
+                                                backgroundPadding={5}
+                                                styles={buildStyles({
+                                                  pathColor: data.vote_average >= 7 ? "green" : "#FFA41B",
+                                                  backgroundColor: "white",
+                                                  trailColor: "#fff",
+                                                })}
+                                            />
+                                          </div>
                                           {/*name*/}
                                               <p className=' text-lg'> {data?.original_title && (
                                                 data.original_title.length > 13
@@ -173,14 +214,28 @@ const ThrTab = () => {
                          <div className='flex justify-center gap-5  mt-6'>
                                 {
                                     PopularTvShow.slice(0,5).map((data,index)=>(
-                                         <div key={index}>
+                                         <div key={index} className='relative'>
 
                                                         {/*img*/}
                                          <img className=' h-[19rem]  w-52 rounded-xl' src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                                        {/*genre*/}
-
-                                                       {/*round*/}
+                                         
+                                                          {/*round*/}
+                                        <div className="absolute bottom-0 -translate-y-12 left-2 w-10">
+                                            <CircularProgressbar
+                                                  maxValue={10}
+                                                  value={data.vote_average}
+                                                  text={`${data.vote_average?.toFixed(2)}%`}
+                                                  background={true}
+                                                  backgroundPadding={5}
+                                                  styles={buildStyles({
+                                                    pathColor: data.vote_average >= 7 ? "green" : "#FFA41B",
+                                                    backgroundColor: "white",
+                                                    trailColor: "#fff",
+                                                  })}
+                                              />
+                                          </div>
 
                                                        {/*name*/}
                                               <p className=' text-lg'> {data?.overview && (
