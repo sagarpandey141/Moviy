@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { apiConnector } from "../sevices/axios";
 import { movieUrls } from "../sevices/urls";
 import Card from "../components/Card";
@@ -13,7 +13,7 @@ import {
 } from "../Redux/Slices/movieSlice";
 import Select from "../components/Select";
 import sortOptions from "../RawData/sorting.json";
-import { isAtbottom } from "../utils/isAtBottom";
+// import { isAtBottom } from "../utils/functions";
 
 const MoviePage = () => {
   const { results, page, loading } = useSelector((state) => state.movie);
@@ -55,16 +55,28 @@ const MoviePage = () => {
     CallMoviesPageAPI(page, selectedGenre, sortBy);
   }, [page, selectedGenre, sortBy]);
 
-  function handleScrollEvent(){
-    console.log("scroll triggered")
-    if (isAtbottom()) 
-      dispatch(setPageIncrement());
+  function isAtBottom() {
+    console.log("kal aana")
+    if (
+      (document.documentElement.scrollTop + window.innerHeight + 10) >
+      document.documentElement.scrollHeight
+    )
+    return true;
+    else 
+    return false;
   }
 
-  useEffect(() => {
-    window.addEventListener("scroll",handleScrollEvent);
+  function handleScrollEvent() {
+    if (isAtBottom()) {
+      console.log("Hello");
+      dispatch(setPageIncrement());
+    }
+    console.log("Hello");
+  }
+ useEffect(() => {
+    window.addEventListener("scroll", handleScrollEvent);
     return () => window.removeEventListener("scroll", handleScrollEvent);
-  }, []);
+  },[]); 
 
   return (
     <div className="bg-[#08172f] py-14">

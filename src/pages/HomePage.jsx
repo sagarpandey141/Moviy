@@ -33,7 +33,7 @@ useEffect(()=> {
   return (
     <div className="bg-[#08172f]">
     {/* bg image */}
-     <div  className="relative" >
+     <div className="relative">
      
        <Swiper 
        loop={true} 
@@ -41,20 +41,20 @@ useEffect(()=> {
           delay: 3000,
           disableOnInteraction: false,
         }}
-        className="w-screen relative max-h-[750px] "
+        className="relative max-h-[750px] "
         modules={[Autoplay]}
         >
            {
-             backgroundImages.map((str,index )=> <SwiperSlide className="w-full" key={index}>
-               <img src={str} alt={str} className="w-full brightness-75" />
+             backgroundImages.map((str,index )=> <SwiperSlide key={index}>
+               <img src={str} alt={str} className="brightness-75 object-contain" />
            </SwiperSlide>)
            }
        </Swiper>
      
-      <div className="absolute flex justify-center items-center inset-0 z-10 bg-gradient-to-t from-slate-900  ">
-          <div className="flex flex-col w-full items-center">
+      <div className="absolute flex justify-center inset-0 items-center z-10 bg-gradient-to-t from-slate-900">
+          <div className="flex flex-col items-center">
                <h1 className="xl:text-7xl text-white font-bold sm:text-5xl text-3xl transition-all duration-500">Welcome.</h1>
-               <p className=" text-center .xl:text-xl text-base text-gray-200">Millions of movies, TV shows and people to discover. Explore now.</p>
+               <p className=" text-center xl:text-xl text-base text-gray-200">Millions of movies, TV shows and people to discover. Explore now.</p>
                <div className="flex lg:text-lg mt-10 max-w-xl w-10/12 ">
                <input type="text" value={searchWord} onChange={(e) => 
                   setSearchWord(e.target.value)
@@ -72,10 +72,7 @@ useEffect(()=> {
                </div>
           </div>
       </div>
-      
      </div>
-
-     
       <ThrTab/>
     </div>
   );

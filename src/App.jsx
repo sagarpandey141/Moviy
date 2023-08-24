@@ -24,7 +24,7 @@ function App() {
   };
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="">
     <ScroolTop />
     <Routes>
          <Route path="/" element={<Home />}>
