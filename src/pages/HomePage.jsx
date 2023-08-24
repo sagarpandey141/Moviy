@@ -1,6 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiConnector } from "../sevices/axios";
+import ThrTab from "../components/ThrTab";
 import {Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import {Autoplay} from "swiper/modules";
@@ -30,7 +31,7 @@ useEffect(()=> {
 },[])
 
   return (
-    <div>
+    <div className="bg-[#08172f]">
     {/* bg image */}
      <div  className="relative" >
      
@@ -74,8 +75,8 @@ useEffect(()=> {
       
      </div>
 
-     {/* sagar write your code below this line */}
-
+     
+      <ThrTab/>
     </div>
   );
 };
