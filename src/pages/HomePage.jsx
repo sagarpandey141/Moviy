@@ -5,9 +5,9 @@ import {Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import {Autoplay} from "swiper/modules";
 
-const HomePage = ({searchWord,setSearchWord}) => {
-    const navigate = useNavigate();
-
+const HomePage = () => {
+   const [searchWord,setSearchWord] = useState("");
+   const navigate = useNavigate();
     function handleSearch(keyword) {
         if(keyword != ""){
              navigate(`/search/${keyword}`)
