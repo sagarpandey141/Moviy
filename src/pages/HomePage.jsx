@@ -34,19 +34,19 @@ useEffect(()=> {
     <div className="bg-[#08172f]">
     {/* bg image */}
      <div className="relative">
-     
        <Swiper 
        loop={true} 
+       slidesPerView={1}
        autoplay={{
           delay: 3000,
           disableOnInteraction: false,
         }}
-        className="relative max-h-[750px] "
+        className="relative max-h-[750px]"
         modules={[Autoplay]}
         >
            {
-             backgroundImages.map((str,index )=> <SwiperSlide key={index}>
-               <img src={str} alt={str} className="brightness-75 object-contain" />
+             backgroundImages.map((str,index)=> <SwiperSlide key={index}>
+               <img src={str} alt={str} className="brightness-75 w-full" />
            </SwiperSlide>)
            }
        </Swiper>
