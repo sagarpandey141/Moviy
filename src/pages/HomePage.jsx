@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiConnector } from "../sevices/axios";
-import ThrTab from "../components/ThrTab";
+import ThrTab from "../components/ThreeComponent/ThrTab";
 import {Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import {Autoplay} from "swiper/modules";
