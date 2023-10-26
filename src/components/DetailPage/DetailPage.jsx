@@ -64,7 +64,7 @@ const Testing = () => {
   }
 
   async function RecommendadVideo(){
-        const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/recommendations?language=en-US&page=1`);
+        const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/recommendations`);
         console.log(
           "recomme",response
         )
@@ -74,16 +74,12 @@ const Testing = () => {
 
   }
  
-  // async function GetDirector(){
-  //    const response=await apiConnector("GET",movieUrls+`movie/${movieId}/credits?api_key=AIzaSyBf-zXFP5QpHzoyX6DndKdir2VCNDYmaWI`)
-    
-  // }
 
  
     useEffect(()=>{
 
       
-      ///  GetDirector();
+
         GetSpecificMovieData();
         GetCredit();
         getOfficialVideo();
