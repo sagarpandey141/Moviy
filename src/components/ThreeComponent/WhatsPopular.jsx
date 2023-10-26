@@ -40,7 +40,7 @@ const WhatsPopular = () => {
     <div className=' mt-10'>
 
                 {/*2 button*/}
-            <div className='  w-[72%] mx-auto'>
+            <div className='  w-[94%] mx-auto'>
                 <div className='flex    justify-between   '>
                         <h1 className=' text-3xl '>What's Popular</h1>
                     <div  className=' flex gap-3   bg-white  w-32  justify-center cursor-pointer p-3 text-black rounded-full'>
@@ -67,7 +67,7 @@ const WhatsPopular = () => {
                                             {/*genre*/}
                                         
                                             {/*round*/}
-                                        <div className="absolute bottom-0 -translate-y-12 left-2 w-10">
+                                        <div className="absolute bottom-0 -translate-y-14 left-2 w-10">
                                             <CircularProgressbar
                                                 maxValue={10}
                                                 value={data.vote_average}

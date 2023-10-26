@@ -67,12 +67,12 @@ const ThrTab = () => {
 
   // console.log("popular move", PopularMovie);
   return (
-    <div className="max-w-4xl w-11/12 mx-auto text-white py-5">
+    <div className="max-w-6xl w-11/12 mx-auto text-white py-5">
       {/*trending*/}
 
          <div className=' flex-col '>
               {/*2 button*/}
-              <div className='  w-[72%] mx-auto'>
+              <div className='  w-[94%] mx-auto'>
                   <div className='flex    justify-between   '>
                           <h1 className=' text-3xl '>Trending</h1>
                   <div  className=' flex gap-3   bg-white  w-32  justify-center cursor-pointer p-3 text-black rounded-full'>
@@ -138,7 +138,7 @@ const ThrTab = () => {
                                           {/*genre*/}
                                           
                                             {/*round*/}
-                                        <div className="absolute bottom-0 -translate-y-12 left-2 w-10">
+                                        <div className="absolute bottom-0 -translate-y-14 left-2 w-10">
                                           <CircularProgressbar
                                                 maxValue={10}
                                                 value={data.vote_average}
