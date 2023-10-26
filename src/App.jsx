@@ -1,7 +1,7 @@
 import { Routes,Route, useLocation } from "react-router-dom"
 import MoviePage from "./pages/MoviePage"
 import DetailPage from "./components/DetailPage/DetailPage"
-import { TVshow } from "./pages/TVshow"
+import  TVshow  from "./pages/TVshow"
 import Home from "./pages/Home"
 import HomePage from "./pages/HomePage"
 import { useState } from "react"
