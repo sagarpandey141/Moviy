@@ -31,10 +31,10 @@ const Testing = () => {
     async function GetSpecificMovieData()
   {
       const response= await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}`);
-   
+    console.log("res",response);
       if(response){
         setMovieSpecificData(response);
-      }
+      } 
   }
    
   async function GetCredit(){
@@ -64,7 +64,7 @@ const Testing = () => {
   }
 
   async function RecommendadVideo(){
-        const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/recommendations`);
+        const response=await apiConnector("GET",movieUrls.MOVIE_DETAIL+`${movieId}/recommendations?language=en-US&page=1`);
         console.log(
           "recomme",response
         )
@@ -74,16 +74,16 @@ const Testing = () => {
 
   }
  
-  async function GetDirector(){
-     const response=await apiConnector("GET",movieUrls+`movie/${movieId}/credits?api_key=AIzaSyBf-zXFP5QpHzoyX6DndKdir2VCNDYmaWI`)
+  // async function GetDirector(){
+  //    const response=await apiConnector("GET",movieUrls+`movie/${movieId}/credits?api_key=AIzaSyBf-zXFP5QpHzoyX6DndKdir2VCNDYmaWI`)
     
-  }
+  // }
 
  
     useEffect(()=>{
 
       
-        GetDirector();
+      ///  GetDirector();
         GetSpecificMovieData();
         GetCredit();
         getOfficialVideo();
@@ -100,7 +100,7 @@ const Testing = () => {
     <div className='bg-[#08172f]  w-screen  h-max  overflow-hidden'>
      
      {
-       Recommended.length==0 ? (
+       OfficialVideo.length==0 ? (
             <div> 
                  <div className='spinner'></div>
              </div>
