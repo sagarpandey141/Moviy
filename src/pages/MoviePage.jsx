@@ -72,7 +72,7 @@ const MoviePage = () => {
   }, []);
   return (
     <div className='bg-[#08172f] py-14' >
-      <div className='max-w-4xl mx-auto w-11/12 '>
+      <div className='max-w-6xl mx-auto w-11/12 '>
         <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
           <div className='text-2xl text-white '>Explore Movies</div>
           {/* select custom */}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { apiConnector } from '../../sevices/axios';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import {buildStyles} from 'react-circular-progressbar';
@@ -27,7 +27,7 @@ const TopRated = () => {
    }
     
 
-    useState(()=>{
+    useEffect(()=>{
         getTopRatedMovie();
         getTopRatedTvshow();
     },[])

@@ -10,13 +10,14 @@ const Header = () => {
           <Link to="/"><div className='text-2xl'>Movie Y</div></Link>
           <div className='flex gap-4 '>
              <Link to="/movies"><div className='hover:text-pink-700'>Movies</div></Link>
-             <Link to="/tvshow"><div className='hover:text-pink-700'>TV</div></Link>
+             {/* <Link to="/tvshow"><div className='hover:text-pink-700'>TV</div></Link> */}
              <SearchIcon className='hover:text-pink-700' />
           </div>
 
        </div>
     </div>
   )
+ 
 }
 
 export default Header

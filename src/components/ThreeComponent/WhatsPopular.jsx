@@ -12,6 +12,7 @@ const WhatsPopular = () => {
     const[PopularTvShow,setPopularTvShow]=useState([]);
     const[currentClickWhat,setCurrentClickWhat]=useState("movie");
     const navigate=useNavigate();
+
     async function fetchPopularMovie(){
         const response=await apiConnector("GET",BASE_URL+"/movie/popular?language=en-US&page=1")
         if(response){
@@ -27,10 +28,12 @@ const WhatsPopular = () => {
         }
      }
 
-     useEffect(()=>(
-         fetchPopularMovie(),
+     useEffect(()=>{
+   
+         fetchPopularMovie()
          fetchPopularTvShow()
-     ),[])
+    
+},[])
   return (
            
 
