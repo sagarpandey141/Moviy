@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { apiConnector } from "../sevices/axios";
 import { movieUrls } from "../sevices/urls";
 import Card from "../components/Card";
@@ -13,6 +13,7 @@ import {
 } from "../Redux/Slices/movieSlice";
 import Select from "../components/Select";
 import sortOptions from "../RawData/sorting.json";
+// import { isAtBottom } from "../utils/functions";
 
 const MoviePage = () => {
   const { results, page, loading } = useSelector((state) => state.movie);
@@ -49,36 +50,43 @@ const MoviePage = () => {
       dispatch(setLoading(false));
     }
   }
-  const isAtbottom = async () => {
-    try {
-      if (
-        document.documentElement.scrollTop + window.innerHeight + 10 >
-        document.documentElement.scrollHeight
-      )
-        dispatch(setPageIncrement());
-      // console.log("scrollbar")
-    } catch (error) {
-      console.log(error, "scroll error");
-    }
-  };
 
   useEffect(() => {
     CallMoviesPageAPI(page, selectedGenre, sortBy);
   }, [page, selectedGenre, sortBy]);
 
-  useEffect(() => {
-    window.addEventListener("scroll", isAtbottom);
-    return () => window.removeEventListener("scroll", isAtbottom);
-  }, []);
+  function isAtBottom() {
+    console.log("kal aana")
+    if (
+      (document.documentElement.scrollTop + window.innerHeight + 10) >
+      document.documentElement.scrollHeight
+    )
+    return true;
+    else 
+    return false;
+  }
+
+  function handleScrollEvent() {
+    if (isAtBottom()) {
+      console.log("Hello");
+      dispatch(setPageIncrement());
+    }
+    console.log("Hello");
+  }
+ useEffect(() => {
+    window.addEventListener("scroll", handleScrollEvent);
+    return () => window.removeEventListener("scroll", handleScrollEvent);
+  },[]); 
+
   return (
     <div className='bg-[#08172f] py-14' >
       <div className='max-w-6xl mx-auto w-11/12 '>
         <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
-          <div className='text-2xl text-white '>Explore Movies</div>
+          <div className="text-xl text-white ">Explore Movies</div>
           {/* select custom */}
-          <div className='flex gap-2 flex-col md:flex-row text-white pt-4'>
-             <CustomSelect Genre={Genre}  />
-             <Select placeHolder={"Sort By"} options={sortOptions} /> 
+          <div className="flex gap-2 flex-col md:flex-row text-white pt-4">
+            <CustomSelect Genre={Genre} />
+            <Select placeHolder={"Sort By"} options={sortOptions} />
           </div>
         </div>
 

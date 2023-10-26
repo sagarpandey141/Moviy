@@ -39,7 +39,7 @@ const Thumbnail = ({videosImg,movieId}) => {
    } )();
   },[movieId]);
   return (
-    <div>
+    <div className="">
       <h2>Official Videos</h2>
       <div>
         <Swiper

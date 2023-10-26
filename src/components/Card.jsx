@@ -61,8 +61,8 @@ function setGenres() {
         </div>
       </div>
       <div className="mt-8 w-full font-semibold">
-        <h2 className="text-white">{movie.title ? movie.title : movie.name}</h2>
-        <p className="font-normal text-gray-500   ">
+        <h2 className="text-white line-clamp-2">{movie.title ? movie.title : movie.name}</h2>
+        <p className="font-normal text-gray-500">
           {DateFormator(movie.release_date? movie.release_date : movie.first_air_date)}
         </p>
       </div>

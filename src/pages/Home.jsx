@@ -5,11 +5,9 @@ import Header from "../components/Header"
 
 const Home = () => {
   return (
-    <div className=' w-screen h-screen bg-[#08172f] '>
+    <div className='w-screen h-screen bg-[#08172f] '>
        <Header/>
-        
-        {/*3 tabs*/}
-        <Outlet/>
+       <Outlet/>
        <Footer/>
     </div>
   )

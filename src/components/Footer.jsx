@@ -18,9 +18,9 @@ const Footer = () => {
         name: "FAQ"
     },]
     return (
-        <div className='bg-[#040c18] text-white '>
-         <div className='max-w-4xl mx-auto w-11/12 py-8 ' >
-            <div className='flex flex-col gap-5 items-center w-4/6 mx-auto p-4'>
+        <div className='bg-[#040c18] text-white'>
+         <div className='max-w-4xl mx-auto w-11/12 py-8' >
+            <div className='flex flex-col gap-5 items-center mx-auto'>
                 <div className='flex gap-5'>
                     { legalWords.map((value,index) => (<div key={index}>
                        {value.name}
@@ -32,7 +32,6 @@ const Footer = () => {
                     <Instagram />
                     <YouTube/>
                     <Twitter />
-
                 </div>
             </div>
           </div>
