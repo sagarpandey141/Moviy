@@ -5,6 +5,7 @@ import Card from "../components/Card";
 import { Loader } from "../components/Loader";
 import genre_t from "../RawData/genre_t.json";
 import CustomSelectTv from "../components/TvGenre/TvCustomSelect";
+import SelectTv from "../components/TvGenre/TvSelect";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setLoading,
@@ -86,7 +87,7 @@ const TVshow = () => {
           {/* select custom */}
           <div className="flex gap-2 flex-col md:flex-row text-white pt-4">
             <CustomSelectTv Genre={genre_t} />
-            <Select placeHolder={"Sort By"} options={sortOptions} />
+            <SelectTv placeHolder={"Sort By"} options={sortOptions} />
           </div>
         </div>
 
