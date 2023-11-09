@@ -6,8 +6,5 @@ export const tvUrls = {
     //  TV11: BASE_URL + "/tv/11",
     //  TV_DETAIL:BASE_URL+"/tv/"
 
-     
-
-
-     
+   
 }

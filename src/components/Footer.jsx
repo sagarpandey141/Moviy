@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Facebook,Instagram,Twitter,YouTube} from "@mui/icons-material"
 
 const Footer = () => {
@@ -17,6 +17,11 @@ const Footer = () => {
     {
         name: "FAQ"
     },]
+
+    
+    
+  
+
     return (
         <div className='bg-[#040c18] text-white'>
          <div className='max-w-4xl mx-auto w-11/12 py-8' >

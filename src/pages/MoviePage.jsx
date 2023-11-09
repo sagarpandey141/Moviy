@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { apiConnector } from "../sevices/axios";
 import { movieUrls } from "../sevices/urls";
-import Card from "../components/Card";
-import { Loader } from "../components/Loader";
+import Card from "../components/Card/Card";
+import { Loader } from "../components/Loader/Loader";
 import Genre from "../RawData/Genre.json";
 import CustomSelect from "../components/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,7 @@ const MoviePage = () => {
     try {
       let response;
       if (selectedGenre?.length > 0) {
+      
         response = await apiConnector(
           "GET",
           movieUrls.DISCOVER_MOVIE,
@@ -34,6 +35,7 @@ const MoviePage = () => {
             index < genres.length ? value.id : "," + value.id
           )}`
         );
+
       } else {
         response = await apiConnector(
           "GET",
@@ -56,7 +58,7 @@ const MoviePage = () => {
   }, [page, selectedGenre, sortBy]);
 
   function isAtBottom() {
-    console.log("kal aana")
+   
     if (
       (document.documentElement.scrollTop + window.innerHeight + 10) >
       document.documentElement.scrollHeight
@@ -80,25 +82,29 @@ const MoviePage = () => {
 
   return (
     <div className='bg-[#08172f] py-14' >
-      <div className='max-w-6xl mx-auto w-11/12 '>
-        <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
-          <div className="text-xl text-white ">Explore Movies</div>
-          {/* select custom */}
-          <div className="flex gap-2 flex-col md:flex-row text-white pt-4">
-            <CustomSelect Genre={Genre} />
-            <Select placeHolder={"Sort By"} options={sortOptions} />
+      
+      {loading ? ( <Loader />)
+       : (
+          <div className='max-w-6xl mx-auto w-11/12 '>
+          <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
+            <div className="text-xl text-white ">Explore Movies</div>
+            {/* select custom */}
+            <div className="flex gap-2 flex-col md:flex-row text-white pt-4">
+              <CustomSelect Genre={Genre} />
+              <Select placeHolder={"Sort By"} options={sortOptions} />
+            </div>
           </div>
-        </div>
 
-        {results.length > 0 && (
-          <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-4 ">
-            {results.map((movie, index) => (
-              <Card key={index} movie={movie} />
-            ))}
-          </div>
-        )}
-        {loading && <Loader />}
-      </div>
+          {results.length > 0 && (
+            <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-4 ">
+              {results.map((movie, index) => (
+                <Card key={index} movie={movie} />
+              ))}
+            </div>
+          )}
+        
+        </div>
+       )}
     </div>
   );
 };

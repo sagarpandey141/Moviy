@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiConnector } from "../sevices/axios";
-import Card from "../components/Card";
+import Card from "../components/Card/Card";
 import { isAtBottom } from "../utils/functions";
 import CastProfile from "../components/CastProfile";
 
@@ -105,7 +105,7 @@ const SearchPage = () => {
             {searchName}
           </span>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-4 py-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-4 py-4">
           {category === "Movie"
             ? movieResults.map((movie, index) => (
                 <Card movie={movie} key={index} />

@@ -1,10 +1,10 @@
 import React, { useEffect,useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { DateFormator } from "../utils/DateFormator";
-import Genre from "../RawData/genre_t.json";
+import { DateFormator } from "../../utils/DateFormator";
+import Genre from "../../RawData/genre_t.json";
 import { Link } from "react-router-dom";
-import NoPoster from "../assets/no-poster.jpeg";
+import NoPoster from "../../assets/no-poster.jpeg";
 
 const Card = ({ movie }) => {
   const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
