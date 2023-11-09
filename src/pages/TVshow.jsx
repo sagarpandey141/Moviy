@@ -5,6 +5,7 @@ import Card from "../components/Card/Card";
 import { Loader } from "../components/Loader/Loader";
 import genre_t from "../RawData/genre_t.json";
 import CustomSelectTv from "../components/TvGenre/TvCustomSelect";
+import SelectTv from "../components/TvGenre/TvSelect";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setLoading,
@@ -80,17 +81,15 @@ const TVshow = () => {
 
   return (
     <div className='bg-[#08172f] py-14' >
-      {loading ? (<Loader />)
-      : (
-          <div className='max-w-6xl mx-auto w-11/12 '>
-          <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
-            <div className="text-xl text-white ">Explore TV Show</div>
-            {/* select custom */}
-            <div className="flex gap-2 flex-col md:flex-row text-white pt-4">
-              <CustomSelectTv Genre={genre_t} />
-              <Select placeHolder={"Sort By"} options={sortOptions} />
-            </div>
+      <div className='max-w-6xl mx-auto w-11/12 '>
+        <div className="flex justify-between flex-wrap py-5 flex-col md:flex-row md:items-center">
+          <div className="text-xl text-white ">Explore TV Show</div>
+          {/* select custom */}
+          <div className="flex gap-2 flex-col md:flex-row text-white pt-4">
+            <CustomSelectTv Genre={genre_t} />
+            <Select placeHolder={"Sort By"} options={sortOptions} />
           </div>
+        </div>
 
           {results.length > 0 && (
             <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-4 ">
@@ -108,6 +107,75 @@ const TVshow = () => {
 };
 
 export default TVshow;
+
+
+// import React, { useState } from 'react';
+
+// export const TVshow = () => {
+//   const [selectedGenre, setSelectedGenre] = useState(null);
+//   const handleGenreChange = (event) => {
+//     setSelectedGenre(event.target.value);
+//   };
+
+//   const [sortBy, setSortBy] = useState(null);
+//   const handleSortChange = (event) => {
+//     setSortBy(event.target.value);
+//   };
+
+//   const genres = [
+//     "Action and Adventure",
+//     "Animation",
+//     "Comedy",
+//     "Crime",
+//     "Documentary",
+//     "Drama",
+//     "Family",
+//     "Kids",
+//     "Mystery",
+//     "News",
+//     "Reality",
+//     "Sci-Fi & Fantasy",
+//     "Soap",
+//     "Talk",
+//     "War & Politics",
+//     "Western",
+//   ];
+
+//   const sortOptions = [
+//     "Popularity Decending",
+//     "Popularity Ascending",
+//     "Rating Decending",
+//     "Rating Ascending",
+//     "Release Date Decending",
+//     "Release Date Ascending",
+//     "Title (A-Z)",
+//   ];
+
+//   return (
+//     <div className='bg-[#08172f] p-4 flex flex-col md:flex-row '>
+//       <p className='text-white text-xl py-4 mr-2'>Explore TV Shows</p>
+//       <div className='flex flex-col md:flex-row gap-2'>
+//         <select onChange={handleGenreChange} value={selectedGenre || ''} className='rounded-xl '>
+//           <option value="" disabled hidden>Select genres</option>
+//           {genres.map((genre) => (
+//             <option key={genre} value={genre}>
+//               {genre}
+//             </option>
+//           ))}
+//         </select>
+
+//         <select onChange={handleSortChange} value={sortBy || ''} className='ml-2 rounded-xl py-1'>
+//           <option value="" disabled hidden>Sort by</option>
+//           {sortOptions.map((option) => (
+//             <option key={option} value={option}>
+//               {option}
+//             </option>
+//           ))}
+//         </select>
+//       </div>
+//     </div>
+//   );
+// };
 
 
 
