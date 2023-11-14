@@ -1,6 +1,6 @@
 import React from 'react'
 const ImageUrl = import.meta.env.VITE_IMAGE_BASE_URL;
-import notFound from "../assets/OIP.jpeg"
+import notFound from "../../assets/OIP.jpeg"
 const CastProfile = ({cast}) => {
     const {name,profile_path,character} = cast;
   return (
