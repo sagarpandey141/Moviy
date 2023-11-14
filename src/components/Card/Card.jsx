@@ -6,11 +6,13 @@ import Genre from "../../RawData/genre_t.json";
 import { Link } from "react-router-dom";
 import NoPoster from "../../assets/no-poster.jpeg";
 
+
 const Card = ({ movie }) => {
+
   const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
   const arr = [];
 function setGenres() {
-    // console.log(movie,"movied")
+   
     for(let x=0; movie.genre_ids != undefined && x<2;x++){
       let tag = Genre.find((item) => item.id == movie.genre_ids[x])
       if(tag !== undefined)
@@ -18,7 +20,9 @@ function setGenres() {
     }
   }
   setGenres();
-
+   
+ 
+ 
   return (
 
        <div className="flex flex-col w-fit mt-2">

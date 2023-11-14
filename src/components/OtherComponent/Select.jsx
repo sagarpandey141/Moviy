@@ -1,8 +1,8 @@
 import React,{useState,useEffect,useRef} from 'react'
 import {ArrowDropDown,CancelRounded} from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux';
-import { setSortBy } from '../Redux/Slices/genreSlice';
-import { resetPageAndResults } from '../Redux/Slices/movieSlice';
+import { setSortBy } from '../../Redux/Slices/genreSlice';
+import { resetPageAndResults } from '../../Redux/Slices/movieSlice';
 
 
 const Select = ({placeHolder,options}) => {

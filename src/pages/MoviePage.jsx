@@ -4,16 +4,17 @@ import { movieUrls } from "../sevices/urls";
 import Card from "../components/Card/Card";
 import { Loader } from "../components/Loader/Loader";
 import Genre from "../RawData/Genre.json";
-import CustomSelect from "../components/CustomSelect";
+import CustomSelect from "../components/OtherComponent/CustomSelect";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setLoading,
   setResults,
   setPageIncrement,
 } from "../Redux/Slices/movieSlice";
-import Select from "../components/Select";
+import Select from "../components/OtherComponent/Select";
 import sortOptions from "../RawData/sorting.json";
-// import { isAtBottom } from "../utils/functions";
+import { setFlag } from "../Redux/Slices/Detail_Flag";
+
 
 const MoviePage = () => {
   const { results, page, loading } = useSelector((state) => state.movie);
@@ -43,7 +44,7 @@ const MoviePage = () => {
           `?page=${page}${sortby != "" ? "&sort_by=" + sortby : ""}`
         );
       }
-      console.log("main", response);
+     
       // response after filter
       dispatch(setResults(response.data.results));
       dispatch(setLoading(false));
@@ -70,15 +71,17 @@ const MoviePage = () => {
 
   function handleScrollEvent() {
     if (isAtBottom()) {
-      console.log("Hello");
+      
       dispatch(setPageIncrement());
     }
-    console.log("Hello");
+   
   }
  useEffect(() => {
     window.addEventListener("scroll", handleScrollEvent);
     return () => window.removeEventListener("scroll", handleScrollEvent);
   },[]); 
+   
+  dispatch(setFlag(false));
 
   return (
     <div className='bg-[#08172f] py-14' >

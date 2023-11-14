@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { apiConnector } from "../sevices/axios";
 import Card from "../components/Card/Card";
 import { isAtBottom } from "../utils/functions";
-import CastProfile from "../components/CastProfile";
+import CastProfile from "../components/OtherComponent/CastProfile";
 
 const SearchPage = () => {
   const [searchPage, setSearchPage] = useState(1);
@@ -28,7 +28,7 @@ const SearchPage = () => {
           "&page=" +
           searchPage
       );
-      console.log("search", response);
+      
       response.data.results.forEach((data) => {
         if (data.media_type == "person") {
           PersonArr.push(data);

@@ -65,17 +65,17 @@ const ThrTab = () => {
     fetchPopularTvShow();
   }, []);
 
-  // console.log("popular move", PopularMovie);
+  
   return (
     <div className="max-w-6xl w-11/12 mx-auto text-white py-5">
       {/*trending*/}
 
-         <div className=' flex-col '>
+         <div className=' flex-col  '>
               {/*2 button*/}
               <div className='  w-[94%] mx-auto'>
                   <div className='flex    justify-between   '>
                           <h1 className=' text-3xl '>Trending</h1>
-                  <div  className=' flex gap-3   bg-white  w-32  justify-center cursor-pointer p-3 text-black rounded-full'>
+                  <div  className=' flex gap-3   bg-white  w-32  justify-center  cursor-pointer p-3 text-black rounded-full border'>
                            <div className={`${currentClick==="days" ? " text-orange-500" : " text-black "}`} onClick={()=>setCurrentClick("days")}>Day</div>
                            <div className={`${currentClick==="months" ? "  text-orange-500" : " text-black "}`} onClick={()=>setCurrentClick("months")}>Week</div>
                   </div>
@@ -88,11 +88,11 @@ const ThrTab = () => {
                     <div className='flex justify-center gap-5  mt-6'>
                           {
                               days?.slice(0,5)?.map((data,index)=>(
-                                 <div key={index} className='relative' >
+                                 <div key={index} className='relative' onClick={()=>{
+                                             navigate(`movie/${data?.id}`)
+                                         }}  >
                                          {/*img*/}
-                                         <img className=' h-[19rem]  w-52 rounded-xl cursor-pointer' onClick={()=>{
-                                             navigate(`/movie/${data?.id}`)
-                                         }} src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
+                                         <img className=' h-[19rem]  w-52 rounded-xl cursor-pointer'  src={IMAGE_BASE_URL+"w400"+data?.poster_path}/>
 
                                          {/*genre*/}
                                          

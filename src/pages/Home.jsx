@@ -1,7 +1,7 @@
 import React from 'react'
 import {Outlet} from "react-router-dom"
-import Footer from "../components/Footer"
-import Header from "../components/Header"
+import Footer from "../components/Head_Footer/Footer"
+import Header from "../components/Head_Footer/Header"
 import { useState,useEffect } from 'react'
 const Home = () => {
 

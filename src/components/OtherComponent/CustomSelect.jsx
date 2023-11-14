@@ -1,8 +1,8 @@
 import { ArrowDropDown, CancelOutlined, CancelRounded } from '@mui/icons-material'
 import React, { useState,useRef,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedGenre,resetSelectedGenre,filterSelectedGenre } from '../Redux/Slices/genreSlice';
-import { resetPageAndResults } from '../Redux/Slices/movieSlice';
+import { setSelectedGenre,resetSelectedGenre,filterSelectedGenre } from '../../Redux/Slices/genreSlice';
+import { resetPageAndResults } from '../../Redux/Slices/movieSlice';
 
 const CustomSelect = ({Genre}) => {
   const dispatch = useDispatch();

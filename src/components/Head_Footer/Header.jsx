@@ -11,7 +11,6 @@ const Header = () => {
           <div className='flex gap-6 text-md'>
              <Link to="/movies"><div className='hover:text-pink-700'>Movies</div></Link>
              <Link to="/tvshow"><div className='hover:text-pink-700'>TV</div></Link>
-             <SearchIcon className='hover:text-pink-700' />
           </div>
 
        </div>

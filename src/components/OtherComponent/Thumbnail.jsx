@@ -5,7 +5,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { FreeMode, Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { setUrls } from "../Redux/Slices/movieSlice";
+import { setUrls } from "../../Redux/Slices/movieSlice";
 
 const Thumbnail = ({videosImg,movieId}) => {
   const { urls } = useSelector((state) => state.movie);

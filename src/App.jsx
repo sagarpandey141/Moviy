@@ -6,7 +6,7 @@ import Home from "./pages/Home"
 import HomePage from "./pages/HomePage"
 import { useState } from "react"
 import SearchPage from "./pages/SearchPage"
-import Error from "./components/Error"
+import Error from "./components/OtherComponent/Error"
 import { useEffect } from "react"
 
 function App() {

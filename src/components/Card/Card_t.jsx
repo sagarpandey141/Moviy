@@ -5,29 +5,46 @@ import { DateFormator } from "../../utils/DateFormator";
 import Genre from "../../RawData/genre_t.json";
 import { Link } from "react-router-dom";
 import NoPoster from "../../assets/no-poster.jpeg";
+import { setFlag } from "../../Redux/Slices/Detail_Flag";
+import { useDispatch } from "react-redux";
 
-const Card = ({ tv }) => {
-  const IMAGE_BASE_URL_T = import.meta.env.VITE_IMAGE_BASE_URL_T;
+const Card_t = ({ tv }) => {
+
+  const dispatch=useDispatch();
+  const IMAGE_BASE_URL_T = import.meta.env.VITE_IMAGE_BASE_URL;
   const arr = [];
 function setGenres() {
-    // console.log(movie,"movied")
-    for(let x=0; tv.genre_ids != undefined && x<2;x++){
+ 
+    for(let x=0; tv?.genre_id != undefined && x<2;x++){
       let tag = Genre.find((item) => item.id == movie.genre_ids[x])
       if(tag !== undefined)
       arr.push(tag);
     }
   }
   setGenres();
+ 
+   
+  function changeFlag(){
+    console.log("hello");
+    dispatch(setFlag(true));
+}
+ 
+const handleLinkClick = () => {
+  // You can perform additional actions here if needed
+  changeFlag();
+};
 
+const Id=tv?.id;
+   
   return (
 
        <div className="flex flex-col w-fit mt-2">
       <div className="relative hover:brightness-75 duration-500 cursor-pointer">
-        <Link to={`/tv/${tv.id}`}>
+        <Link to={`/movie/${tv.id}`} onClick={handleLinkClick} >
           <img
             src={
-              movie.poster_path != null
-                ? IMAGE_BASE_URL_T + "w300" + tv?.poster_path
+              tv.poster_path != null
+                ? IMAGE_BASE_URL_T + "w300" + tv.poster_path
                 : NoPoster
             }
             alt={tv?.title}
@@ -69,4 +86,4 @@ function setGenres() {
     </div>
   );
 };
-export default Card;
+export default Card_t;

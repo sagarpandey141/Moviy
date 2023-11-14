@@ -58,18 +58,18 @@ useEffect(()=> {
             delay: 3000,
             disableOnInteraction: false,
          }}
-         className="relative max-h-[750px]"
+         className="relative max-h-[750px] border"
          modules={[Autoplay]}
          >
             {
                backgroundImages.map((str,index)=> <SwiperSlide key={index}>
-                  <img src={str} alt={str} className="brightness-75 w-full" />
+                  <img src={str} alt={str} className="brightness-75 w-full " />
             </SwiperSlide>)
             }
          </Swiper>
       
-         <div className="absolute flex justify-center inset-0 items-center z-10 bg-gradient-to-t from-slate-900 mt-[-90%]">
-            <div className="flex flex-col items-center">
+         <div className="absolute flex justify-center inset-0 items-center z-10 bg-gradient-to-t from-slate-900 mt-[-90%]  ">
+            <div className="flex flex-col items-center ">
                   <h1 className="xl:text-7xl text-white font-bold sm:text-5xl text-3xl transition-all duration-500">Welcome.</h1>
                   <p className=" text-center xl:text-xl text-base text-gray-200">Millions of movies, TV shows and people to discover. Explore now.</p>
                   <div className="flex lg:text-lg mt-10 max-w-xl w-10/12 ">
