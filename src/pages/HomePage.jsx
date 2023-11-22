@@ -67,8 +67,9 @@ useEffect(()=> {
             </SwiperSlide>)
             }
          </Swiper>
-      
-         <div className="absolute flex justify-center inset-0 items-center z-10 bg-gradient-to-t from-slate-900 mt-[-90%]  ">
+          
+           
+         <div className="absolute flex justify-center items-center z-10 bg-gradient-to-t from-slate-900  mt-[-30rem] w-[100vw]   border-pink-800 ">
             <div className="flex flex-col items-center ">
                   <h1 className="xl:text-7xl text-white font-bold sm:text-5xl text-3xl transition-all duration-500">Welcome.</h1>
                   <p className=" text-center xl:text-xl text-base text-gray-200">Millions of movies, TV shows and people to discover. Explore now.</p>
@@ -89,12 +90,12 @@ useEffect(()=> {
                   </div>
             </div>
          </div>
-        
+           <div className="">
             {
                backgroundImages.length>0 ? <ThrTab/> : null
             }
-                       
-             </div>
+            </div>            
+         </div>
          )
       }
     </div>
